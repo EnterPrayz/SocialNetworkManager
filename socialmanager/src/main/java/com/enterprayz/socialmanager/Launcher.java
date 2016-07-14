@@ -10,14 +10,10 @@ import java.util.List;
 /**
  * Created by hacker on 14.07.16.
  */
-public class Launcher implements IFragment {
+public class Launcher {
     private Fragment fragment;
     private ArrayList<SocialNetwork> networks = new ArrayList<>();
 
-    @Override
-    public Fragment getFragment() {
-        return fragment;
-    }
 
     private Launcher(Fragment fragment, ArrayList<SocialNetwork> networks) {
         this.fragment = fragment;
@@ -28,7 +24,8 @@ public class Launcher implements IFragment {
     private void ini() {
         Fragment social = fragment.getFragmentManager().findFragmentByTag(SocialManagerFragment.TAG);
         if (social == null) {
-            fragment.getChildFragmentManager().beginTransaction()
+            fragment.getChildFragmentManager()
+                    .beginTransaction()
                     .add(SocialManagerFragment.getInstance(networks), SocialManagerFragment.TAG)
                     .commitAllowingStateLoss();
         }
