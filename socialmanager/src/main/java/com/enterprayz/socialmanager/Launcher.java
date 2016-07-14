@@ -10,13 +10,11 @@ import java.util.List;
  */
 public class Launcher {
     private Fragment fragment;
-    private List<SocialNetwork> networks = new ArrayList<>();
-    private Listener listener;
+    private ArrayList<SocialNetwork> networks = new ArrayList<>();
 
-    private Launcher(Fragment fragment, List<SocialNetwork> networks, Listener listener) {
+    private Launcher(Fragment fragment, ArrayList<SocialNetwork> networks) {
         this.fragment = fragment;
         this.networks = networks;
-        this.listener = listener;
     }
 
 
@@ -24,21 +22,14 @@ public class Launcher {
         Fragment social = fragment.getFragmentManager().findFragmentByTag(SocialManagerFragment.TAG);
         if (social == null) {
             fragment.getChildFragmentManager().beginTransaction()
-                    .add(new SocialManagerFragment(), SocialManagerFragment.TAG)
+                    .add(SocialManagerFragment.getInstance(networks), SocialManagerFragment.TAG)
                     .commitAllowingStateLoss();
-
-            social = fragment.getChildFragmentManager().findFragmentByTag(SocialManagerFragment.TAG);
         }
-
-
-
     }
-
 
     public static class Builder {
         private Fragment fragment;
-        private List<SocialNetwork> networks = new ArrayList<>();
-        private Listener listener;
+        private ArrayList<SocialNetwork> networks = new ArrayList<>();
 
         public Builder(Fragment fragment) {
             this.fragment = fragment;
@@ -53,13 +44,8 @@ public class Launcher {
             return this;
         }
 
-        public Builder setListener(Listener listener) {
-            this.listener = listener;
-            return this;
-        }
-
         public Launcher create() {
-            return new Launcher(fragment, networks, listener);
+            return new Launcher(fragment, networks);
         }
     }
 }
