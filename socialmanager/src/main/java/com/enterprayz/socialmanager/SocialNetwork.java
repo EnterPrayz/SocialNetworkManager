@@ -26,6 +26,10 @@ public abstract class SocialNetwork implements Serializable {
         this.fragment = fragment;
     }
 
+    protected Fragment getFragment() {
+        return fragment;
+    }
+
     public void onSaveInstanceState(Bundle outState) {
 
     }
