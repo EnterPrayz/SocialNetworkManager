@@ -1,10 +1,13 @@
 package com.enterprayz.socialmanager;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.enterprayz.socialmanager.beans.NetworkTag;
+import com.enterprayz.social.core.SocialNetwork;
+import com.enterprayz.social.core.beans.NetworkTag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,19 +16,24 @@ import java.util.Map;
 /**
  * Created by hacker on 14.07.16.
  */
-public class SocialManagerFragment extends Fragment {
-    private static final String BUNDLE_NEWTWORKS_KEY = "networks";
+public class SocialManagerFragment extends Fragment implements ISocialManager {
     public static final String TAG = SocialManagerFragment.class.getSimpleName();
     private Map<NetworkTag, SocialNetwork> socialNetworksMap = new HashMap<>();
+    private OnInitializeListener initializeListener;
 
-    public static SocialManagerFragment getInstance(ArrayList<SocialNetwork> socialNetworks) {
-        SocialManagerFragment fragment = new SocialManagerFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_NEWTWORKS_KEY, socialNetworks);
-        fragment.setArguments(bundle);
-        return fragment;
+
+    public void setNetworks(ArrayList<SocialNetwork> socialNetworks) {
+        for (SocialNetwork item : socialNetworks) {
+            item.setFragment(this);
+            socialNetworksMap.put(item.getTag(), item);
+        }
     }
 
+    public void setIniListener(OnInitializeListener initializeListener) {
+        this.initializeListener = initializeListener;
+    }
+
+    @Override
     public SocialNetwork getSocialNetwork(NetworkTag tag) throws RuntimeException {
         if (!socialNetworksMap.containsKey(tag)) {
             throw new RuntimeException("Social network with tag = " + tag + " not found");
@@ -33,18 +41,15 @@ public class SocialManagerFragment extends Fragment {
         return socialNetworksMap.get(tag);
     }
 
-    private void prepare(Bundle bundle) {
-        ArrayList<SocialNetwork> list = (ArrayList<SocialNetwork>) bundle.getSerializable(BUNDLE_NEWTWORKS_KEY);
-        for (SocialNetwork item : list) {
-            item.setFragment(this);
-            socialNetworksMap.put(item.getTag(), item);
-        }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        initializeListener.onStart(this);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prepare(getArguments());
         setRetainInstance(true);
         for (SocialNetwork socialNetwork : socialNetworksMap.values()) {
             socialNetwork.onCreate(savedInstanceState);
