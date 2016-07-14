@@ -23,7 +23,10 @@ import java.util.Arrays;
 public class VkSocialNetwork extends SocialNetwork {
     private LoginListener loginListener;
     private final String[] scopes = new String[]{
-            VKScope.EMAIL
+            VKScope.FRIENDS,
+            VKScope.WALL,
+            VKScope.PHOTOS,
+            VKScope.NOHTTPS
     };
 
     @Override

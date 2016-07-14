@@ -14,7 +14,6 @@ public class Launcher {
     private FragmentManager fragmentManager;
     private ArrayList<SocialNetwork> networks = new ArrayList<>();
 
-
     private Launcher(FragmentManager fragment, ArrayList<SocialNetwork> networks) {
         this.fragmentManager = fragment;
         this.networks = networks;
