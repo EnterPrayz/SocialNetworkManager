@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 
-
 import com.enterprayz.social.core.beans.NetworkTag;
-
-import java.io.Serializable;
 
 /**
  * Created by hacker on 14.07.16.
  */
-public abstract class SocialNetwork implements Serializable {
+public abstract class SocialNetwork {
     private Fragment fragment;
 
     public abstract NetworkTag getTag();

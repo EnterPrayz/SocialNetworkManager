@@ -11,24 +11,28 @@ import java.util.ArrayList;
  * Created by hacker on 14.07.16.
  */
 public class Launcher {
-    private FragmentManager fragment;
+    private FragmentManager fragmentManager;
     private ArrayList<SocialNetwork> networks = new ArrayList<>();
 
 
     private Launcher(FragmentManager fragment, ArrayList<SocialNetwork> networks) {
-        this.fragment = fragment;
+        this.fragmentManager = fragment;
         this.networks = networks;
-        ini();
     }
 
-
-    private void ini() {
-        Fragment social = fragment.findFragmentByTag(SocialManagerFragment.TAG);
+    private SocialManagerFragment ini(OnInitializeListener initializeListener) {
+        Fragment social = fragmentManager.findFragmentByTag(SocialManagerFragment.TAG);
         if (social == null) {
-            fragment.beginTransaction()
-                    .add(SocialManagerFragment.getInstance(networks), SocialManagerFragment.TAG)
+            SocialManagerFragment fragment = new SocialManagerFragment();
+            fragment.setNetworks(networks);
+            fragment.setIniListener(initializeListener);
+
+            fragmentManager.beginTransaction()
+                    .add(fragment, SocialManagerFragment.TAG)
                     .commitAllowingStateLoss();
+            social = fragment;
         }
+        return (SocialManagerFragment) social;
     }
 
 
@@ -49,8 +53,8 @@ public class Launcher {
             return this;
         }
 
-        public Launcher create() {
-            return new Launcher(fragment, networks);
+        public ISocialManager create(OnInitializeListener initializeListener) {
+            return new Launcher(fragment, networks).ini(initializeListener);
         }
     }
 }
