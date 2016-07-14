@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.enterprayz.socialmanager.beans.NetworkTag;
+import com.enterprayz.social.core.SocialNetwork;
+import com.enterprayz.social.core.beans.NetworkTag;
 
 import java.util.ArrayList;
 import java.util.HashMap;

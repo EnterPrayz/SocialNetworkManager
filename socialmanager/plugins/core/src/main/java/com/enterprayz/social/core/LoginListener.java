@@ -1,11 +1,12 @@
-package com.enterprayz.socialmanager;
+package com.enterprayz.social.core;
 
-import com.enterprayz.socialmanager.beans.NetworkTag;
+
+import com.enterprayz.social.core.beans.NetworkTag;
 
 /**
  * Created by hacker on 14.07.16.
  */
-public interface Listener {
+public interface LoginListener {
     void onGetAccessToken(NetworkTag networkTag, String token);
 
     void onGetError(Throwable error);

@@ -1,31 +1,31 @@
 package com.enterprayz.socialmanager;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
-import com.enterprayz.socialmanager.interfaces.IFragment;
+import com.enterprayz.social.core.SocialNetwork;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by hacker on 14.07.16.
  */
 public class Launcher {
-    private Fragment fragment;
+    private FragmentManager fragment;
     private ArrayList<SocialNetwork> networks = new ArrayList<>();
 
 
-    private Launcher(Fragment fragment, ArrayList<SocialNetwork> networks) {
+    private Launcher(FragmentManager fragment, ArrayList<SocialNetwork> networks) {
         this.fragment = fragment;
         this.networks = networks;
+        ini();
     }
 
 
     private void ini() {
-        Fragment social = fragment.getFragmentManager().findFragmentByTag(SocialManagerFragment.TAG);
+        Fragment social = fragment.findFragmentByTag(SocialManagerFragment.TAG);
         if (social == null) {
-            fragment.getChildFragmentManager()
-                    .beginTransaction()
+            fragment.beginTransaction()
                     .add(SocialManagerFragment.getInstance(networks), SocialManagerFragment.TAG)
                     .commitAllowingStateLoss();
         }
@@ -33,14 +33,14 @@ public class Launcher {
 
 
     public static class Builder {
-        private Fragment fragment;
+        private FragmentManager fragment;
         private ArrayList<SocialNetwork> networks = new ArrayList<>();
 
-        public Builder(Fragment fragment) {
+        public Builder(FragmentManager fragment) {
             this.fragment = fragment;
         }
 
-        public static Builder ini(Fragment fragment) {
+        public static Builder ini(FragmentManager fragment) {
             return new Builder(fragment);
         }
 

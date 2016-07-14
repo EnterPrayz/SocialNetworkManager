@@ -1,1 +1,4 @@
 include ':app', ':socialmanager'
+include 'socialmanager:plugins:vk'
+include 'socialmanager:plugins:googleplus'
+include 'socialmanager:plugins:core'

@@ -1,11 +1,12 @@
-package com.enterprayz.socialmanager;
+package com.enterprayz.social.core;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 
-import com.enterprayz.socialmanager.beans.NetworkTag;
+
+import com.enterprayz.social.core.beans.NetworkTag;
 
 import java.io.Serializable;
 
@@ -22,7 +23,7 @@ public abstract class SocialNetwork implements Serializable {
     }
 
     @CallSuper
-    protected void setFragment(Fragment fragment) {
+    public void setFragment(Fragment fragment) {
         this.fragment = fragment;
     }
 
@@ -58,7 +59,7 @@ public abstract class SocialNetwork implements Serializable {
 
     }
 
-    public abstract void getAccessToken(Listener listener);
+    public abstract void getAccessToken(LoginListener listener);
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
