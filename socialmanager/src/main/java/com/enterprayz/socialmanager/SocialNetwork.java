@@ -2,6 +2,7 @@ package com.enterprayz.socialmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 
 import com.enterprayz.socialmanager.beans.NetworkTag;
@@ -11,12 +12,17 @@ import java.io.Serializable;
 /**
  * Created by hacker on 14.07.16.
  */
-public abstract class SocialNetwork implements Serializable{
+public abstract class SocialNetwork implements Serializable {
     private Fragment fragment;
 
     public abstract NetworkTag getTag();
 
-    public SocialNetwork(Fragment fragment) {
+    public SocialNetwork() {
+
+    }
+
+    @CallSuper
+    protected void setFragment(Fragment fragment) {
         this.fragment = fragment;
     }
 

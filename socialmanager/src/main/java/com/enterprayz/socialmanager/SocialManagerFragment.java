@@ -36,6 +36,7 @@ public class SocialManagerFragment extends Fragment {
     private void prepare(Bundle bundle) {
         ArrayList<SocialNetwork> list = (ArrayList<SocialNetwork>) bundle.getSerializable(BUNDLE_NEWTWORKS_KEY);
         for (SocialNetwork item : list) {
+            item.setFragment(this);
             socialNetworksMap.put(item.getTag(), item);
         }
     }
