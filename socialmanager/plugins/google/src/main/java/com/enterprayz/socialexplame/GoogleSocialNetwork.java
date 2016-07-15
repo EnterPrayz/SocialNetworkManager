@@ -19,7 +19,6 @@ import com.google.android.gms.common.api.Status;
  * Created by Fedir on 15.07.2016.
  */
 public class GoogleSocialNetwork extends SocialNetwork {
-    private GoogleSignInOptions gso;
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient googleApiClient;
     private LoginListener listener;
@@ -39,10 +38,11 @@ public class GoogleSocialNetwork extends SocialNetwork {
             signIn();
     }
     private void initLogin(){
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestProfile()
                 .requestId()
+                .requestIdToken("31314463697-4058nv8h0gtijhocl0oed2ii7ohccuf2.apps.googleusercontent.com")
                 .build();
         googleApiClient = new GoogleApiClient.Builder(getFragment().getContext())
                 .enableAutoManage(getFragment().getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
@@ -88,7 +88,7 @@ public class GoogleSocialNetwork extends SocialNetwork {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result != null && result.isSuccess() && requestCode == RC_SIGN_IN) {
                 GoogleSignInAccount googleSignInAccount = result.getSignInAccount();
-                listener.onGetAccessToken(NetworkTag.GOOGLE, googleSignInAccount.getId());
+                listener.onGetAccessToken(NetworkTag.GOOGLE, googleSignInAccount.getIdToken());
                 signOut();
             }
         }
