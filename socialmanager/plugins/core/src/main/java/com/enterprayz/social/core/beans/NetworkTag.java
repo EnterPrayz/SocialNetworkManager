@@ -5,5 +5,6 @@ package com.enterprayz.social.core.beans;
  */
 public enum NetworkTag {
     VKONTAKTE,
-    FACEBOOK
+    FACEBOOK,
+    GOOGLE
 }
