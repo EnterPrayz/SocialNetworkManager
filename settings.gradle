@@ -3,3 +3,5 @@ include 'socialmanager:plugins:vk'
 include 'socialmanager:plugins:googleplus'
 include 'socialmanager:plugins:facebook'
 include 'socialmanager:plugins:core'
+include 'socialmanager:plugins:google'
+

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "31314463697",
+    "project_id": "testing-905dd"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31314463697:android:195478f06bfbbb02",
+        "android_client_info": {
+          "package_name": "com.enterprayz.socialexplame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31314463697-t4ekjrcqscctb56hm0sklu2dlfn8nb3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enterprayz.socialexplame",
+            "certificate_hash": "9F628BB0113C1B34066FAB86927B913D2387C16A"
+          }
+        },
+        {
+          "client_id": "31314463697-4058nv8h0gtijhocl0oed2ii7ohccuf2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9pauw8n5YNTfzPuDxk4fJ79COoR32uUQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

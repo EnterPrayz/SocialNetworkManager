@@ -15,11 +15,12 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  * Created by hacker on 14.07.16.
@@ -27,7 +28,7 @@ import java.security.NoSuchAlgorithmException;
 public class FacebookSocialNetwork extends SocialNetwork {
     private LoginListener listener;
     private CallbackManager callbackManager;
-    private LoginButton login;
+    private LoginManager loginManager;
 
     @Override
     public NetworkTag getTag() {
@@ -44,16 +45,14 @@ public class FacebookSocialNetwork extends SocialNetwork {
     public void getAccessToken(LoginListener listener) {
         this.listener = listener;
         initlogin();
-        login.performClick();
+        loginManager.logInWithReadPermissions(getFragment(), Arrays.asList("email", "user_likes"));
     }
 
     private void initlogin() {
         FacebookSdk.sdkInitialize(getFragment().getContext());
-        login = new LoginButton(getFragment().getContext());
-        login.setReadPermissions("email");
-        login.setFragment(getFragment());
+        loginManager = LoginManager.getInstance();
         callbackManager = CallbackManager.Factory.create();
-        login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        loginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 listener.onGetAccessToken(NetworkTag.FACEBOOK, loginResult.getAccessToken().getToken());
@@ -75,7 +74,10 @@ public class FacebookSocialNetwork extends SocialNetwork {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if(callbackManager != null) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+            loginManager.logOut();
+        }
     }
 
     private void showFingerPrint() {
