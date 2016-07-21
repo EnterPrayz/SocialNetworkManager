@@ -35,14 +35,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void iniSocialManager() {
-        VkSocialNetwork vkSocialNetwork = new VkSocialNetwork();
-        FacebookSocialNetwork facebookSocialNetwork = new FacebookSocialNetwork();
-        GoogleSocialNetwork googleSocialNetwork = new GoogleSocialNetwork();
         Launcher.Builder
                 .ini(getSupportFragmentManager())
-                .addNetwork(vkSocialNetwork)
-                .addNetwork(googleSocialNetwork)
-                .addNetwork(facebookSocialNetwork)
+                .addNetwork(new FacebookSocialNetwork())
+                .addNetwork(new GoogleSocialNetwork())
+                .addNetwork(new VkSocialNetwork())
                 .create(new OnInitializeListener() {
                     @Override
                     public void onStart(ISocialManager socialManager) {
@@ -120,6 +117,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        socialManager.onActivityResult(requestCode,resultCode,data);
+        socialManager.onActivityResult(requestCode, resultCode, data);
     }
 }
